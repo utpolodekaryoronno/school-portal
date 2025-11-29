@@ -44,12 +44,6 @@
                             <span class="fw-semibold">Attendance</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-dark d-flex align-items-center gap-3 px-4 py-2 rounded-3 hover-bg">
-                            <i class="fas fa-comments"></i>
-                            <span class="fw-semibold">Messages</span>
-                        </a>
-                    </li>
                 </ul>
 
                 <hr class="my-3 border-muted">

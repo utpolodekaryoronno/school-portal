@@ -43,9 +43,9 @@
                 @if(auth('student')->check())
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
-                            <span class="d-none d-md-inline fw-semibold">{{ auth()->user()->name }}</span>
+                            <span class="d-none d-md-inline fw-semibold">{{ auth('student')->user()->name }}</span>
                             <small class="text-success ms-2 me-2">(Student)</small>
-                            <img src="{{ auth()->user()->photo
+                            <img src="{{ auth('student')->user()->photo
                                 ? asset('media/student/'.auth()->user()->photo)
                                 : asset('assets/image/default-profile.png') }}"
                                 class="rounded-circle " width="40" height="40" style="object-fit: cover;">
@@ -140,11 +140,11 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
                             <span class="d-none d-md-inline fw-semibold">{{ auth('admin')->user()->name }}</span>
-                            <small class="text-danger ms-2 me-2">(Admin)</small>
+                            <small class="text-primary ms-2 me-2">(Admin)</small>
                             <img src="{{ auth('admin')->user()->photo
                                 ? asset('media/admin/'.auth('admin')->user()->photo)
                                 : asset('assets/image/default-profile.png') }}"
-                                class="rounded-circle " width="40" height="40" style="object-fit: cover;">
+                                class="rounded-circle border border-3 border-primary shadow" width="40" height="40" style="object-fit: cover;">
 
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 p-2">

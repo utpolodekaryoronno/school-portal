@@ -9,7 +9,9 @@ class Admin extends User
 {
     protected $fillable = [
         'name',
+        'username',
         'email',
+        'phone',
         'photo',
         'password'
     ];

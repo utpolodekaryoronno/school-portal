@@ -63,7 +63,6 @@
                                         <option value="manager" {{ old('role') == 'manager' ? 'selected' : '' }}>Manager</option>
                                         <option value="accountant" {{ old('role') == 'accountant' ? 'selected' : '' }}>Accountant</option>
                                         <option value="librarian" {{ old('role') == 'librarian' ? 'selected' : '' }}>Librarian</option>
-                                        <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Administrator</option>
                                     </select>
                                 </div>
                             </div>
