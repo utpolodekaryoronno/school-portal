@@ -16,7 +16,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-semibold text-dark"><i class="fas fa-user text-primary"></i> Email, Username or Phone</label>
-                                <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+                                <input type="text" name="auth" class="form-control" value="{{ old('auth') }}">
                             </div>
 
                             <div class="mb-3 position-relative">

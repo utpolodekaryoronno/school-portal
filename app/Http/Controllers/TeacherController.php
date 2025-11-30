@@ -51,10 +51,24 @@ class TeacherController extends Controller
     // 🧾 Login Store
     public function loginTeacher(Request $request)
     {
-        $credentials = $request->validate([
-            'email'    => 'required|email|exists:teachers',
+       $credentials = $request->validate([
+            'auth'    => 'required',
             'password' => 'required|min:6',
         ]);
+
+        // login with valid email or phone or username
+        if(filter_var($credentials['auth'], FILTER_VALIDATE_EMAIL)){
+            $credentials['email'] = $request->auth;
+            unset($credentials['auth']);
+        }elseif (preg_match('/^[0-9]{11}$/', $request->auth)){
+            $credentials['phone'] = $request -> auth;
+            unset($credentials['auth']);
+        }else{
+            $credentials['username'] = $request->auth;
+            unset($credentials['auth']);
+        }
+
+
 
         Auth::guard('teacher')->attempt($credentials);
 
@@ -65,8 +79,8 @@ class TeacherController extends Controller
 
 
         return back()->withErrors([
-            'email' => 'Invalid credentials.',
-        ])->onlyInput('email');
+            'auth' => 'Invalid credentials.',
+        ])->onlyInput('auth');
     }
 
     // 👤 Dashboard Page

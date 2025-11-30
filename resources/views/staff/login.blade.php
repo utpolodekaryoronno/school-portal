@@ -22,8 +22,8 @@
                                 <label class="form-label fw-semibold text-dark">
                                     <i class="fas fa-user text-primary"></i> Email, Username or Phone
                                 </label>
-                                <input type="text" name="email" class="form-control"
-                                       value="{{ old('email') }}" placeholder="Enter email, username or phone"
+                                <input type="text" name="auth" class="form-control"
+                                       value="{{ old('auth') }}" placeholder="Enter email, username or phone"
                                        >
                             </div>
 

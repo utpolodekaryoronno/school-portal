@@ -53,9 +53,23 @@ class StaffController extends Controller
     public function loginStaff(Request $request)
     {
         $credentials = $request->validate([
-            'email'    => 'required|email|exists:staff',
+            'auth'    => 'required',
             'password' => 'required|min:6',
         ]);
+
+        // login with valid email or phone or username
+        if(filter_var($credentials['auth'], FILTER_VALIDATE_EMAIL)){
+            $credentials['email'] = $request->auth;
+            unset($credentials['auth']);
+        }elseif (preg_match('/^[0-9]{11}$/', $request->auth)){
+            $credentials['phone'] = $request -> auth;
+            unset($credentials['auth']);
+        }else{
+            $credentials['username'] = $request->auth;
+            unset($credentials['auth']);
+        }
+
+
 
         Auth::guard('staff')->attempt($credentials);
 
@@ -75,8 +89,8 @@ class StaffController extends Controller
 
 
         return back()->withErrors([
-            'email' => 'Invalid credentials.',
-        ])->onlyInput('email');
+            'auth' => 'Invalid credentials.',
+        ])->onlyInput('auth');
     }
 
     // 👤 Profile Page

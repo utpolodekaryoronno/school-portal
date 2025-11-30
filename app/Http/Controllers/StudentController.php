@@ -36,7 +36,7 @@ class StudentController extends Controller
         // Create new student
         $student = Student::create([
             'name'     => $request->name,
-            'username'     => $request->username,
+            'username' => $request->username,
             'email'    => $request->email,
             'phone'    => $request->phone,
             'password' => Hash::make($request->password),
@@ -56,9 +56,21 @@ class StudentController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email'    => 'required|email|exists:students',
+            'auth'    => 'required',
             'password' => 'required|min:6',
         ]);
+
+        // login with valid email or phone or username
+        if(filter_var($credentials['auth'], FILTER_VALIDATE_EMAIL)){
+            $credentials['email'] = $request->auth;
+            unset($credentials['auth']);
+        }elseif (preg_match('/^[0-9]{11}$/', $request->auth)){
+            $credentials['phone'] = $request -> auth;
+            unset($credentials['auth']);
+        }else{
+            $credentials['username'] = $request->auth;
+            unset($credentials['auth']);
+        }
 
         Auth::guard('student')->attempt($credentials);
 
@@ -72,8 +84,8 @@ class StudentController extends Controller
 
 
         return back()->withErrors([
-            'email' => 'Invalid credentials.',
-        ])->onlyInput('email');
+            'auth' => 'Invalid credentials.',
+        ])->onlyInput('auth');
     }
 
     // 👤 Dashboard Page

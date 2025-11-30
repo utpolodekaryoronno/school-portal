@@ -17,9 +17,24 @@ class AdminController extends Controller
     public function loginAdmin(Request $request)
     {
         $credentials = $request->validate([
-            'email'    => 'required|email|exists:admins',
+            'auth'    => 'required',
             'password' => 'required|min:6',
         ]);
+
+        // login with valid email or phone or username
+        if(filter_var($credentials['auth'], FILTER_VALIDATE_EMAIL)){
+            $credentials['email'] = $request->auth;
+            unset($credentials['auth']);
+        }elseif (preg_match('/^[0-9]{11}$/', $request->auth)){
+            $credentials['phone'] = $request -> auth;
+            unset($credentials['auth']);
+        }else{
+            $credentials['username'] = $request->auth;
+            unset($credentials['auth']);
+        }
+
+
+
 
         Auth::guard('admin')->attempt($credentials);
 
@@ -30,8 +45,8 @@ class AdminController extends Controller
 
 
         return back()->withErrors([
-            'email' => 'Invalid credentials.',
-        ])->onlyInput('email');
+            'auth' => 'Invalid credentials.',
+        ])->onlyInput('auth');
     }
 
 
